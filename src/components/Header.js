@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import Button from "react-bootstrap/button";
+import { Button } from "react-bootstrap";
 
 import { FaSignInAlt, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
