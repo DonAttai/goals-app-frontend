@@ -5,7 +5,6 @@ import authHeader from "../service/auth-header";
 // import { AuthContext } from "../context/AuthContext";
 
 const API_URL = process.env.REACT_APP_GOALS;
-console.log(API_URL);
 const initialState = {
   goals: [],
   loading: true,
