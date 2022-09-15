@@ -4,9 +4,8 @@ import { goalReducer } from "./goalReducer";
 import authHeader from "../service/auth-header";
 // import { AuthContext } from "../context/AuthContext";
 
-// const API_URL = "http://localhost:8000/api/goals";
-const API_URL = "https://attai-goals-app.herokuapp.com/api/goals";
-
+const API_URL = process.env.REACT_APP_GOALS;
+console.log(API_URL);
 const initialState = {
   goals: [],
   loading: true,

@@ -2,8 +2,7 @@ import { createContext, useReducer, useEffect } from "react";
 import axios from "axios";
 import { authReducer } from "./authReducer";
 
-// const API_URL = "http://localhost:8000/api/users";
-const API_URL = "https://attai-goals-app.herokuapp.com/api/users";
+const API_URL = process.env.REACT_APP_USERS;
 
 const user = JSON.parse(localStorage.getItem("user"));
 const initialState = {
