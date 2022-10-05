@@ -23,7 +23,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email !== "" && password !== "") {
+    if (email && password) {
       try {
         const userData = { email, password };
         await login(userData);
