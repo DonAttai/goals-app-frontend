@@ -13,7 +13,7 @@ function Register() {
     password2: "",
   });
   const { name, email, password, password2 } = formData;
-  const { register, error, loading } = useContext(AuthContext);
+  const { register, error, loading, setLoading } = useContext(AuthContext);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -43,6 +43,7 @@ function Register() {
 
       try {
         await register(userData);
+        setLoading();
         navigate("/login");
       } catch (error) {
         return error.message;

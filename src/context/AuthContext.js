@@ -50,12 +50,17 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "LOGOUT" });
   };
 
+  const setLoading = () => {
+    dispatch({ type: "SET_LOADING" });
+  };
+
   return (
     <AuthContext.Provider
       value={{
         user: state.user,
         loading: state.loading,
         error: state.error,
+        setLoading,
         login,
         logout,
         register,

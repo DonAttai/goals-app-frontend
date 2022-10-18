@@ -9,7 +9,7 @@ import GoalList from "../components/GoalList";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user, error, loading } = useContext(AuthContext);
+  const { user, error, loading, setLoading } = useContext(AuthContext);
   const [isError, setIsError] = useState(error);
 
   useEffect(() => {
@@ -19,7 +19,8 @@ function Dashboard() {
     if (!user) {
       navigate("/login");
     }
-  }, [user, navigate, isError]);
+    setLoading();
+  }, [user, navigate, isError, setLoading]);
 
   if (loading) {
     return <Loader className="text-dark" />;

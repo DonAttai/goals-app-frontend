@@ -12,7 +12,7 @@ function Login() {
   });
   const { email, password } = formData;
   const navigate = useNavigate();
-  const { login, error, loading } = useContext(AuthContext);
+  const { login, error, loading, setLoading } = useContext(AuthContext);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -27,6 +27,7 @@ function Login() {
       try {
         const userData = { email, password };
         await login(userData);
+        setLoading();
         navigate("/");
       } catch (error) {
         console.log(error);
