@@ -1,27 +1,36 @@
-import { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { GoalContext } from "../context/GoalContext";
-
+import { useForm } from "react-hook-form";
 function GoalForm() {
-  const [text, setText] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   const { addGoal } = useContext(GoalContext);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (text) {
-      addGoal({ text });
+  const onSubmit = async (data) => {
+    const { text } = data;
+    try {
+      await addGoal({ text });
+      reset();
+    } catch (error) {
+      console.log(error);
     }
-    setText("");
   };
+
   return (
-    <form onSubmit={handleSubmit} className="goal-form">
+    <form onSubmit={handleSubmit(onSubmit)} className="goal-form">
       <input
-        type="text"
-        name="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        {...register("text", {
+          required: "You have not entered a goal",
+          // pattern: { value: /^[A-Za-z]+$/, message: "Only text are allowed" },
+        })}
         placeholder="Add a goal..."
         autoComplete="off"
       />
+      {errors.text && <p className="text-danger">{errors.text.message}</p>}
       <button type="submit">submit</button>
     </form>
   );

@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import axios from "axios";
 import { authReducer } from "./authReducer";
 
@@ -7,7 +7,6 @@ const API_URL = process.env.REACT_APP_USERS;
 const user = JSON.parse(localStorage.getItem("user"));
 const initialState = {
   user: user ? user : null,
-  loading: false,
   error: null,
 };
 
@@ -34,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (userData) => {
+  const registerUser = async (userData) => {
     try {
       const { data } = await axios.post(API_URL + "/register", userData);
       dispatch({ type: "REGISTER_SUCCESS", payload: data });
@@ -50,20 +49,18 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "LOGOUT" });
   };
 
-  const setLoading = () => {
-    dispatch({ type: "SET_LOADING" });
-  };
+  // const setLoading = () => {
+  //   dispatch({ type: "SET_LOADING" });
+  // };
 
   return (
     <AuthContext.Provider
       value={{
         user: state.user,
-        loading: state.loading,
         error: state.error,
-        setLoading,
         login,
         logout,
-        register,
+        registerUser,
       }}
     >
       {children}

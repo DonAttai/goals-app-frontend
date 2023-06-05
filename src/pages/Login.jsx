@@ -1,49 +1,31 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 import { FaSignInAlt } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext";
 import { Button, Form, Col, Row } from "react-bootstrap";
-import Loader from "../components/Loader";
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const { email, password } = formData;
   const navigate = useNavigate();
-  const { login, error, loading, setLoading } = useContext(AuthContext);
+  const { login, error } = useContext(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (email && password) {
-      try {
-        const userData = { email, password };
-        await login(userData);
-        setLoading();
-        navigate("/");
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
+  const onSubmit = async (data) => {
+    try {
+      await login(data);
+      navigate("/");
+      reset();
+    } catch (error) {
       console.log(error);
     }
-
-    setFormData({
-      email: "",
-      password: "",
-    });
   };
-  if (loading) {
-    return <Loader />;
-  }
+
   return (
     <section>
       <h2 className="login-heading">
@@ -53,26 +35,36 @@ function Login() {
       <Row className="justify-content-center align-items-center ">
         <Col md="auto">
           {error && <span>{error.message}</span>}
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3" controld="email">
               <Form.Control
-                type="email"
-                name="email"
-                value={email}
-                onChange={onChange}
+                {...register("email", {
+                  required: "Please,enter your email",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Please, enter a valid email",
+                  },
+                })}
                 placeholder="Enter a valid email"
                 autoComplete="off"
               />
+              {errors.email && (
+                <p className="text-danger">{errors.email.message}</p>
+              )}
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
               <Form.Control
+                {...register("password", {
+                  required: "Please, enter your password",
+                })}
                 type="password"
-                name="password"
-                value={password}
-                onChange={onChange}
                 placeholder="Enter password"
                 autoComplete="off"
               />
+              {errors.password && (
+                <p className="text-danger">{errors.password.message}</p>
+              )}
+
               <span className="d-flex justify-content-start">
                 <Form.Text className="px-2 ">
                   Don't have an account?{" "}
