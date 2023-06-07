@@ -4,7 +4,7 @@ const API_URL = () => {
   if (process.env.REACT_APP_NODE_ENV === "development") {
     return process.env.REACT_APP_GOALSETTER_API;
   }
-  return process.env.REACT_APP_GOALSETTER_API;
+  return process.env.REACT_APP_GOALSETTER_BACKEND;
 };
 
 export default axios.create({
