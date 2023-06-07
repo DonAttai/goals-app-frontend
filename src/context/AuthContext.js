@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(state.user));
-    console.log(state.user);
   }, [state.user]);
 
   const logOut = () => {
