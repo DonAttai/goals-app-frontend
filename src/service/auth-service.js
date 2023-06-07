@@ -1,12 +1,12 @@
 import axios from "../api/axios";
 
 const register = async (userData) => {
-  const { data } = await axios.post("/users/register", userData);
+  const { data } = await axios.post("/api/users/register", userData);
   return data;
 };
 
 const login = async (userData) => {
-  const { data } = await axios.post("/users/login", userData);
+  const { data } = await axios.post("/api/users/login", userData);
   if (data) {
     localStorage.setItem("user", JSON.stringify(data));
   }
