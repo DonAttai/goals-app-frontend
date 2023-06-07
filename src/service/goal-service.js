@@ -20,7 +20,7 @@ const deleteGoal = async (id) => {
   const config = {
     headers: authHeader(),
   };
-  const { data } = await axios.delete(`api//goals/${id}`, config);
+  const { data } = await axios.delete(`/api//goals/${id}`, config);
   return data;
 };
 
