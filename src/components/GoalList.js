@@ -1,22 +1,33 @@
 import React, { useEffect, useContext } from "react";
 import { GoalContext } from "../context/GoalContext";
-
 import Goal from "./Goal";
+
+import goalService from "../service/goal-service";
+import { toast } from "react-toastify";
+
 function GoalList() {
-  const { goals, getGoals, isLoading } = useContext(GoalContext);
+  const { goals, isLoading, dispatch } = useContext(GoalContext);
 
   useEffect(() => {
-    getGoals();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
+    const getUserGoals = async () => {
+      try {
+        const userGoals = await goalService.getGoals();
+        dispatch({ type: "GET_GOALS", payload: userGoals });
+      } catch (error) {
+        toast(error.response.data.message, { type: "error" });
+      }
+    };
+
+    getUserGoals();
   }, []);
 
   if (isLoading) {
-    return <h3>Loading...</h3>;
+    return <h3 className="text-danger">Loading...</h3>;
   }
 
   return (
     <>
-      {goals.length > 0 ? (
+      {goals.length ? (
         <section className="goals">
           {goals.map((goal) => {
             return <Goal key={goal._id} {...goal} />;

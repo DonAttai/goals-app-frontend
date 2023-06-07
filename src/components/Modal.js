@@ -1,8 +1,19 @@
 import React, { useContext } from "react";
 import { GoalContext } from "../context/GoalContext";
+import goalService from "../service/goal-service";
+import { toast } from "react-toastify";
 
 function Modal({ goalId }) {
-  const { setModal, deleteGoal } = useContext(GoalContext);
+  const { setModal, isLoading, dispatch } = useContext(GoalContext);
+
+  const removeGoal = async (id) => {
+    try {
+      const data = await goalService.deleteGoal(id);
+      dispatch({ type: "DELETE_GOAL", payload: data });
+    } catch (error) {
+      toast(error.response.data.message, { type: "error" });
+    }
+  };
   return (
     <section className="delete-modal">
       <div className="card card-body">
@@ -16,10 +27,11 @@ function Modal({ goalId }) {
             Cancel
           </button>
           <button
-            onClick={() => deleteGoal(goalId)}
+            onClick={() => removeGoal(goalId)}
             className="btn btn-sm btn-danger px-2 py-1"
+            disabled={isLoading}
           >
-            Delete
+            Confirm
           </button>
         </span>
       </div>

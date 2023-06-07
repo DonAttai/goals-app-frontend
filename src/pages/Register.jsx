@@ -4,25 +4,31 @@ import { FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
+import authService from "../service/auth-service";
 
 function Register() {
-  const { registerUser } = useContext(AuthContext);
+  const { isLoading, setLoading, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     getValues,
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading();
     try {
-      await registerUser(data);
+      const userData = await authService.register(data);
+      dispatch({ type: "REGISTER_SUCCESS", payload: userData });
       navigate("/login");
-      reset();
+      toast("Account Creation Successful, Login", { type: "success" });
     } catch (error) {
-      console.log(error);
+      toast(error.response.data.message, { type: "error" });
+      navigate("/login");
+    } finally {
+      setLoading();
     }
   };
 
@@ -120,8 +126,8 @@ function Register() {
                 </Form.Text>
               </span>
             </Form.Group>
-            <Button type="submit" className="btn btn-sm">
-              Create Account
+            <Button type="submit" className="btn btn-sm" disabled={isLoading}>
+              {isLoading ? "Pls, Wait" : "Create Account"}
             </Button>
           </Form>
         </Col>

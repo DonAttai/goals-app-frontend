@@ -6,7 +6,7 @@ import { FaSignInAlt, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const { user, logout } = useContext(AuthContext);
+  let { user, logOut } = useContext(AuthContext);
 
   return (
     <nav className="navbar">
@@ -19,7 +19,7 @@ function Header() {
                 <Button
                   // href="/login"
                   className="btn btn-dark btn-sm"
-                  onClick={() => logout()}
+                  onClick={() => logOut()}
                 >
                   <FaSignOutAlt />
                   LogOut

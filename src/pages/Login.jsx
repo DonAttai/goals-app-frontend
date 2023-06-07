@@ -2,27 +2,33 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+import { toast } from "react-toastify";
+
 import { FaSignInAlt } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext";
 import { Button, Form, Col, Row } from "react-bootstrap";
+import authService from "../service/auth-service";
 
 function Login() {
   const navigate = useNavigate();
-  const { login, error } = useContext(AuthContext);
+  const { setLoading, isLoading, dispatch } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading();
     try {
-      await login(data);
+      const userData = await authService.login(data);
+      dispatch({ type: "LOGIN_SUCCESS", payload: userData });
       navigate("/");
-      reset();
+      toast("Login Successful", { type: "success" });
     } catch (error) {
-      console.log(error);
+      toast(error.response.data.message, { type: "error" });
+    } finally {
+      setLoading();
     }
   };
 
@@ -34,7 +40,6 @@ function Login() {
       </h2>
       <Row className="justify-content-center align-items-center ">
         <Col md="auto">
-          {error && <span>{error.message}</span>}
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3" controld="email">
               <Form.Control
@@ -75,8 +80,13 @@ function Login() {
               </span>
             </Form.Group>
 
-            <Button className="btn btn-sm" type="submit" variant="primary">
-              Sign In
+            <Button
+              className="btn btn-sm"
+              type="submit"
+              variant="primary"
+              disabled={isLoading}
+            >
+              {isLoading ? "Pls, wait" : "SIGN IN"}
             </Button>
           </Form>
         </Col>

@@ -1,17 +1,12 @@
-import axios from "axios";
-
-const API_URL = process.env.REACT_APP_USERS;
+import axios from "../api/axios";
 
 const register = async (userData) => {
-  const { data } = await axios.post(`${API_URL / register}`, userData);
-  if (data) {
-    localStorage.setItem("user", JSON.stringify(data));
-  }
+  const { data } = await axios.post("/users/register", userData);
   return data;
 };
 
 const login = async (userData) => {
-  const { data } = await axios.post(`${API_URL / login}`, userData);
+  const { data } = await axios.post("/users/login", userData);
   if (data) {
     localStorage.setItem("user", JSON.stringify(data));
   }
@@ -19,6 +14,7 @@ const login = async (userData) => {
 };
 
 const logout = () => {
+  delete axios.defaults.headers.common["Authorization"];
   localStorage.removeItem("user");
 };
 
