@@ -22,7 +22,7 @@ function Dashboard() {
         <h2>welcome, {user && user.name}!</h2>
         <GoalForm />
       </section>
-      <GoalList />
+      {user && <GoalList />}
     </div>
   );
 }

@@ -17,7 +17,6 @@ function Header() {
             <>
               <li>
                 <Button
-                  // href="/login"
                   className="btn btn-dark btn-sm"
                   onClick={() => logOut()}
                 >

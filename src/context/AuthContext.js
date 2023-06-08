@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }) => {
   const logOut = () => {
     delete axios.defaults.headers.common["Authorization"];
     localStorage.removeItem("user");
-    // authService.logout();
     dispatch({ type: "LOGOUT" });
   };
 

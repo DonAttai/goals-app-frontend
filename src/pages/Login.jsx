@@ -86,7 +86,7 @@ function Login() {
               variant="primary"
               disabled={isLoading}
             >
-              {isLoading ? "Pls, wait" : "SIGN IN"}
+              {isLoading ? "Pls, Wait" : "SIGN IN"}
             </Button>
           </Form>
         </Col>

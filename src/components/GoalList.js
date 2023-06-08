@@ -4,6 +4,7 @@ import Goal from "./Goal";
 
 import goalService from "../service/goal-service";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 function GoalList() {
   const { goals, isLoading, dispatch } = useContext(GoalContext);
@@ -22,7 +23,7 @@ function GoalList() {
   }, []);
 
   if (isLoading) {
-    return <h3 className="text-danger">Loading...</h3>;
+    return <Loader />;
   }
 
   return (
