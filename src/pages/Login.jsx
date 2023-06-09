@@ -44,13 +44,13 @@ function Login() {
             <Form.Group className="mb-3" controld="email">
               <Form.Control
                 {...register("email", {
-                  required: "Please,enter your email",
+                  required: "Please, enter your email",
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: "Please, enter a valid email",
                   },
                 })}
-                placeholder="Enter a valid email"
+                placeholder="Enter email"
                 autoComplete="off"
               />
               {errors.email && (
