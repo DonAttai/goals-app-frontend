@@ -17,14 +17,14 @@ function GoalForm() {
   const onSubmit = async (data) => {
     const { text } = data;
     try {
-      setIsLoading(true);
+      setIsLoading((prev) => !prev);
       const goal = await goalService.addGoal({ text });
       dispatch({ type: "ADD_GOAL", payload: goal });
       reset();
     } catch (error) {
       toast(error.response.data.message, { type: "error" });
     } finally {
-      setIsLoading(false);
+      setIsLoading((prev) => !prev);
     }
   };
 

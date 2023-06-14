@@ -9,13 +9,13 @@ function Modal({ goalId }) {
 
   const removeGoal = async (id) => {
     try {
-      setIsLoading(true);
+      setIsLoading((prev) => !prev);
       const data = await goalService.deleteGoal(id);
       dispatch({ type: "DELETE_GOAL", payload: data });
     } catch (error) {
       toast(error.response.data.message, { type: "error" });
     } finally {
-      setIsLoading(false);
+      setIsLoading((prev) => !prev);
     }
   };
   return (
