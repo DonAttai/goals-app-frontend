@@ -1,26 +1,16 @@
 import axios from "../api/axios";
-import authHeader from "./auth-header";
 
 const addGoal = async (goal) => {
-  const config = {
-    headers: authHeader(),
-  };
-  const { data } = await axios.post("/api/goals", goal, config);
+  const { data } = await axios.post("/goals", goal);
   return data;
 };
 const getGoals = async () => {
-  const config = {
-    headers: authHeader(),
-  };
-  const { data } = await axios.get("/api/goals", config);
+  const { data } = await axios.get("/goals");
   return data;
 };
 
 const deleteGoal = async (id) => {
-  const config = {
-    headers: authHeader(),
-  };
-  const { data } = await axios.delete(`/api/goals/${id}`, config);
+  const { data } = await axios.delete(`/goals/${id}`);
   return data;
 };
 

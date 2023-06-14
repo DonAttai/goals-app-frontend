@@ -1,17 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GoalContext } from "../context/GoalContext";
 import goalService from "../service/goal-service";
 import { toast } from "react-toastify";
 
 function Modal({ goalId }) {
-  const { setModal, isLoading, dispatch } = useContext(GoalContext);
+  const { setModal, dispatch } = useContext(GoalContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const removeGoal = async (id) => {
     try {
+      setIsLoading(true);
       const data = await goalService.deleteGoal(id);
       dispatch({ type: "DELETE_GOAL", payload: data });
     } catch (error) {
       toast(error.response.data.message, { type: "error" });
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -31,7 +35,7 @@ function Modal({ goalId }) {
             className="btn btn-sm btn-danger px-2 py-1"
             disabled={isLoading}
           >
-            Confirm
+            {isLoading ? "Deleting..." : "Confirm"}
           </button>
         </span>
       </div>

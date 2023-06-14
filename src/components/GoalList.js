@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Loader from "./Loader";
 
 function GoalList() {
-  const { goals, isLoading, dispatch } = useContext(GoalContext);
+  const { goals, dispatch, isLoading } = useContext(GoalContext);
 
   useEffect(() => {
     const getUserGoals = async () => {

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GoalContext } from "../context/GoalContext";
 import { useForm } from "react-hook-form";
 import goalService from "../service/goal-service";
@@ -11,16 +11,20 @@ function GoalForm() {
     formState: { errors },
     reset,
   } = useForm();
-  const { isLoading, dispatch } = useContext(GoalContext);
+  const { dispatch } = useContext(GoalContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
     const { text } = data;
     try {
+      setIsLoading(true);
       const goal = await goalService.addGoal({ text });
       dispatch({ type: "ADD_GOAL", payload: goal });
       reset();
     } catch (error) {
       toast(error.response.data.message, { type: "error" });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -34,8 +38,8 @@ function GoalForm() {
         autoComplete="off"
       />
       {errors.text && <p className="text-danger">{errors.text.message}</p>}
-      <button type="submit" disabled={isLoading}>
-        Submit
+      <button type="submit" disabled={isLoading} className="submit-btn">
+        {isLoading ? "Pls, Wait" : "Submit"}
       </button>
     </form>
   );

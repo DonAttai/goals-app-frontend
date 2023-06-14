@@ -3,20 +3,17 @@ export function goalReducer(state, action) {
     case "ADD_GOAL":
       return {
         ...state,
-        isLoading: false,
         goals: [...state.goals, action.payload],
       };
     case "GET_GOALS":
       return {
         ...state,
         isLoading: false,
-
         goals: action.payload,
       };
     case "DELETE_GOAL":
       return {
         ...state,
-        isLoading: false,
 
         isModalOpen: !state.isModalOpen,
         goals: state.goals.filter((goal) => goal._id !== action.payload),
@@ -25,8 +22,6 @@ export function goalReducer(state, action) {
     case "SET_MODAL":
       return {
         ...state,
-        isLoading: false,
-
         isModalOpen: !state.isModalOpen,
       };
     case "SET_LOADING":

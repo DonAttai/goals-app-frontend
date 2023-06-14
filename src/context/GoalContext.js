@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { goalReducer } from "./goalReducer";
+import { goalReducer } from "./goal-reducer";
 
 const initialState = {
   goals: [],

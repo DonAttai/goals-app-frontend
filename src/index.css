@@ -135,6 +135,10 @@
   height: 100vh;
 }
 
+.submit-btn:disabled {
+  background-color: lightblue;
+}
+
 /* Register page */
 .btn-sm {
   width: 100%;

@@ -1,12 +1,18 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Button } from "react-bootstrap";
+import authService from "../service/auth-service";
 
 import { FaSignInAlt, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function Header() {
-  let { user, logOut } = useContext(AuthContext);
+  let { user, dispatch } = useContext(AuthContext);
+
+  const logOut = () => {
+    authService.logOut();
+    dispatch({ type: "LOGOUT" });
+  };
 
   return (
     <nav className="navbar">

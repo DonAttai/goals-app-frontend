@@ -1,7 +1,6 @@
 import React, { createContext, useReducer, useEffect } from "react";
-import { authReducer } from "./authReducer";
+import { authReducer } from "./auth-reducer";
 import authService from "../service/auth-service";
-import axios from "axios";
 
 // const user = JSON.parse(localStorage.getItem("user"));
 const user = authService.getCurrentUser();
@@ -19,12 +18,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(state.user));
   }, [state.user]);
 
-  const logOut = () => {
-    delete axios.defaults.headers.common["Authorization"];
-    localStorage.removeItem("user");
-    dispatch({ type: "LOGOUT" });
-  };
-
   const setLoading = () => {
     dispatch({ type: "SET_LOADING" });
   };
@@ -36,7 +29,6 @@ export const AuthProvider = ({ children }) => {
         error: state.error,
         isLoading: state.isLoading,
         dispatch,
-        logOut,
         setLoading,
       }}
     >
