@@ -1,5 +1,5 @@
-import React, { useEffect, useContext } from "react";
-import { GoalContext } from "../context/GoalContext";
+import React, { useEffect } from "react";
+import { useGoalContext } from "../context/GoalContext";
 import Goal from "./Goal";
 
 import goalService from "../service/goal-service";
@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Loader from "./Loader";
 
 function GoalList() {
-  const { goals, dispatch, isLoading } = useContext(GoalContext);
+  const { goals, dispatch, isLoading } = useGoalContext();
 
   useEffect(() => {
     const getUserGoals = async () => {

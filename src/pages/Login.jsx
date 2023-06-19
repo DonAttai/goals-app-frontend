@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { toast } from "react-toastify";
 
 import { FaSignInAlt } from "react-icons/fa";
-import { AuthContext } from "../context/AuthContext";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import authService from "../service/auth-service";
+import { useAuthContext } from "../context/AuthContext";
 
 function Login() {
   const navigate = useNavigate();
-  const { setLoading, isLoading, dispatch } = useContext(AuthContext);
+  const { setLoading, isLoading, dispatch } = useAuthContext();
   const {
     register,
     handleSubmit,

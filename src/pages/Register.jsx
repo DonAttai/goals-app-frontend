@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, Col, Row } from "react-bootstrap";
-import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import authService from "../service/auth-service";
+import { useAuthContext } from "../context/AuthContext";
 
 function Register() {
-  const { isLoading, setLoading, dispatch } = useContext(AuthContext);
+  const { isLoading, setLoading, dispatch } = useAuthContext;
   const navigate = useNavigate();
   const {
     register,

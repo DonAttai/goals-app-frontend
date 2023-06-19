@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
-import { GoalContext } from "../context/GoalContext";
+import React, { useState } from "react";
+import { useGoalContext } from "../context/GoalContext";
 import goalService from "../service/goal-service";
 import { toast } from "react-toastify";
 
 function Modal({ goalId }) {
-  const { setModal, dispatch } = useContext(GoalContext);
+  const { setModal, dispatch } = useGoalContext();
   const [isLoading, setIsLoading] = useState(false);
 
   const removeGoal = async (id) => {
@@ -12,6 +12,7 @@ function Modal({ goalId }) {
       setIsLoading((prev) => !prev);
       const data = await goalService.deleteGoal(id);
       dispatch({ type: "DELETE_GOAL", payload: data });
+      toast.success("Deleted Successfully!", { type: "success" });
     } catch (error) {
       toast(error.response.data.message, { type: "error" });
     } finally {

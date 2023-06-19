@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { GoalContext } from "../context/GoalContext";
+import React, { useState } from "react";
+import { useGoalContext } from "../context/GoalContext";
 import { useForm } from "react-hook-form";
 import goalService from "../service/goal-service";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ function GoalForm() {
     formState: { errors },
     reset,
   } = useForm();
-  const { dispatch } = useContext(GoalContext);
+  const { dispatch } = useGoalContext();
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (data) => {
@@ -20,6 +20,7 @@ function GoalForm() {
       setIsLoading((prev) => !prev);
       const goal = await goalService.addGoal({ text });
       dispatch({ type: "ADD_GOAL", payload: goal });
+      toast.success("Goal added Successfully!", { type: "success" });
       reset();
     } catch (error) {
       toast(error.response.data.message, { type: "error" });

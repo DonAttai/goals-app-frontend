@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { goalReducer } from "./goal-reducer";
 
 const initialState = {
@@ -7,7 +7,7 @@ const initialState = {
   isModalOpen: false,
 };
 
-export const GoalContext = createContext(initialState);
+const GoalContext = createContext(initialState);
 
 export const GoalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(goalReducer, initialState);
@@ -34,3 +34,5 @@ export const GoalProvider = ({ children }) => {
     </GoalContext.Provider>
   );
 };
+
+export const useGoalContext = () => useContext(GoalContext);

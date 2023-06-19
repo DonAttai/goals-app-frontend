@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { GoalContext } from "../context/GoalContext";
+import React from "react";
+import { useGoalContext } from "../context/GoalContext";
 import Modal from "./Modal";
 
 function Goal({ _id, text, createdAt }) {
-  const { setModal, isModalOpen } = useContext(GoalContext);
+  const { setModal, isModalOpen } = useGoalContext();
   return (
     <>
       {isModalOpen && <Modal goalId={_id} />}
