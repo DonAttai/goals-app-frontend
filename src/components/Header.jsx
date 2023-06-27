@@ -19,7 +19,7 @@ function Header() {
       <div className="container">
         <div className="logo">GoalSetter</div>
         <ul className="nav">
-          {user ? (
+          {user && user.token ? (
             <>
               <li>
                 <Button

@@ -1,42 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import { useGoalContext } from "../context/GoalContext";
 import goalService from "../service/goal-service";
 import { toast } from "react-toastify";
 
-function Modal({ goalId }) {
-  const { setModal, dispatch } = useGoalContext();
-  const [isLoading, setIsLoading] = useState(false);
+function Modal({ _id, setIsModalOpen }) {
+  const { dispatch, state, setLoading } = useGoalContext();
 
-  const removeGoal = async (id) => {
+  const removeGoal = async () => {
     try {
-      setIsLoading((prev) => !prev);
-      const data = await goalService.deleteGoal(id);
+      setLoading();
+      const data = await goalService.deleteGoal(_id);
       dispatch({ type: "DELETE_GOAL", payload: data });
-      toast.success("Deleted Successfully!", { type: "success" });
+      toast.success(`successful!`, { type: "success" });
     } catch (error) {
       toast(error.response.data.message, { type: "error" });
     } finally {
-      setIsLoading((prev) => !prev);
+      setLoading();
+      setIsModalOpen((prev) => !prev);
     }
   };
+
   return (
     <section className="delete-modal">
       <div className="card card-body">
-        <p>Are you sure you want to delete?</p>
-
+        <h3>Delete Goal</h3>
+        <hr className="text-dark" />
+        <p>Are you sure?</p>
+        <hr />
         <span className="d-flex gap-2 ">
           <button
-            onClick={() => setModal()}
+            onClick={() => setIsModalOpen((prev) => !prev)}
             className="px-2 py-1 btn btn-sm btn-secondary"
           >
             Cancel
           </button>
           <button
-            onClick={() => removeGoal(goalId)}
+            onClick={() => removeGoal()}
             className="btn btn-sm btn-danger px-2 py-1"
-            disabled={isLoading}
+            disabled={state.isLoading}
           >
-            {isLoading ? "Deleting..." : "Confirm"}
+            {state.isLoading ? "Wait..." : "Confirm"}
           </button>
         </span>
       </div>

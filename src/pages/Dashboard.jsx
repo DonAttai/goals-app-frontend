@@ -1,14 +1,13 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 
-// import authService from "../service/auth-service";
 import GoalForm from "../components/GoalForm";
 import GoalList from "../components/GoalList";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user } = useAuthContext();
 
   useEffect(() => {
     if (!user) {

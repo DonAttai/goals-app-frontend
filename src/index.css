@@ -149,6 +149,7 @@
   text-align: center;
   color: #000;
 }
+
 @media only screen and (max-width: 600px) {
   .goals {
     display: grid;

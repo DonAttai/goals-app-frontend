@@ -8,22 +8,14 @@ export function goalReducer(state, action) {
     case "GET_GOALS":
       return {
         ...state,
-        isLoading: false,
         goals: action.payload,
       };
     case "DELETE_GOAL":
       return {
         ...state,
-
-        isModalOpen: !state.isModalOpen,
         goals: state.goals.filter((goal) => goal._id !== action.payload),
       };
 
-    case "SET_MODAL":
-      return {
-        ...state,
-        isModalOpen: !state.isModalOpen,
-      };
     case "SET_LOADING":
       return {
         ...state,

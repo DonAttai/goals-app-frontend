@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useMemo, useReducer } from "react";
 import { goalReducer } from "./goal-reducer";
 
 const initialState = {
   goals: [],
-  isLoading: true,
-  isModalOpen: false,
+  isLoading: false,
 };
 
 const GoalContext = createContext(initialState);
@@ -12,21 +11,16 @@ const GoalContext = createContext(initialState);
 export const GoalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(goalReducer, initialState);
 
-  const setModal = () => {
-    dispatch({ type: "SET_MODAL" });
-  };
   const setLoading = () => {
     dispatch({ type: "SET_LOADING" });
   };
 
+  const contextvalue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+
   return (
     <GoalContext.Provider
       value={{
-        goals: state.goals,
-        isLoading: state.isLoading,
-        isModalOpen: state.isModalOpen,
-        setModal,
-        dispatch,
+        ...contextvalue,
         setLoading,
       }}
     >

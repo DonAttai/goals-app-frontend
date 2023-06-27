@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useGoalContext } from "../context/GoalContext";
 import Goal from "./Goal";
 
@@ -7,7 +7,8 @@ import { toast } from "react-toastify";
 import Loader from "./Loader";
 
 function GoalList() {
-  const { goals, dispatch, isLoading } = useGoalContext();
+  const { dispatch, state } = useGoalContext();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getUserGoals = async () => {
@@ -16,6 +17,8 @@ function GoalList() {
         dispatch({ type: "GET_GOALS", payload: userGoals });
       } catch (error) {
         toast(error.response.data.message, { type: "error" });
+      } finally {
+        setIsLoading();
       }
     };
 
@@ -28,10 +31,10 @@ function GoalList() {
 
   return (
     <>
-      {goals.length ? (
+      {state.goals.length ? (
         <section className="goals">
-          {goals.map((goal) => {
-            return <Goal key={goal._id} {...goal} />;
+          {state.goals.map((goal) => {
+            return <Goal key={goal._id} goal={goal} />;
           })}
         </section>
       ) : (
