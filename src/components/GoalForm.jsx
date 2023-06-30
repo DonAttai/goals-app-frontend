@@ -22,10 +22,10 @@ function GoalForm() {
       setLoading();
       const goal = await goalService.addGoal({ text });
       dispatch({ type: "ADD_GOAL", payload: goal });
-      toast.success("Successfully!", { type: "success" });
+      toast.success("A new goal was added!", { type: "success" });
       reset();
     } catch (error) {
-      toast(error.response?.data.message, { type: "error" });
+      toast(error.response.data.message, { type: "error" });
     } finally {
       setLoading();
     }

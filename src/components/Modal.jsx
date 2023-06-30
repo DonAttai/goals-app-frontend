@@ -11,9 +11,9 @@ function Modal({ _id, setIsModalOpen }) {
       setLoading();
       const data = await goalService.deleteGoal(_id);
       dispatch({ type: "DELETE_GOAL", payload: data });
-      toast.success(`successful!`, { type: "success" });
+      toast.success(`Delete successful!`, { type: "success" });
     } catch (error) {
-      toast(error.response?.data.message, { type: "error" });
+      toast(error.response.data.message, { type: "error" });
     } finally {
       setLoading();
       setIsModalOpen((prev) => !prev);
@@ -36,10 +36,10 @@ function Modal({ _id, setIsModalOpen }) {
           </button>
           <button
             onClick={() => removeGoal()}
-            className="btn btn-sm btn-danger px-2 py-1"
+            className="btn btn-sm btn-danger px-3 py-1"
             disabled={state.isLoading}
           >
-            {state.isLoading ? "Wait..." : "Confirm"}
+            {state.isLoading ? "Wait..." : "Yes"}
           </button>
         </span>
       </div>
