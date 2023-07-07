@@ -2,7 +2,6 @@ import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { authReducer } from "./auth-reducer";
 import authService from "../service/auth-service";
 
-// const user = JSON.parse(localStorage.getItem("user"));
 const user = authService.getCurrentUser();
 const initialState = {
   user: user ? user : null,

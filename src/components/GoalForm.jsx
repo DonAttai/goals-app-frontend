@@ -25,7 +25,7 @@ function GoalForm() {
       toast.success("A new goal was added!", { type: "success" });
       reset();
     } catch (error) {
-      toast(error.response.data.message, { type: "error" });
+      toast(error.response?.data.message, { type: "error" });
     } finally {
       setLoading();
     }

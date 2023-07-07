@@ -26,7 +26,7 @@ function Login() {
       navigate("/");
       toast("Login Successful", { type: "success" });
     } catch (error) {
-      toast(error.response.data.message, { type: "error" });
+      toast(error.response?.data.message, { type: "error" });
     } finally {
       setLoading();
     }

@@ -14,7 +14,6 @@ const login = async (userData) => {
 };
 
 const logOut = () => {
-  delete axios.defaults.headers.common["Authorization"];
   localStorage.removeItem("user");
 };
 

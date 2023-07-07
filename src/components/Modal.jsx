@@ -13,7 +13,7 @@ function Modal({ _id, setIsModalOpen }) {
       dispatch({ type: "DELETE_GOAL", payload: data });
       toast.success(`Delete successful!`, { type: "success" });
     } catch (error) {
-      toast(error.response.data.message, { type: "error" });
+      toast(error.response?.data.message, { type: "error" });
     } finally {
       setLoading();
       setIsModalOpen((prev) => !prev);

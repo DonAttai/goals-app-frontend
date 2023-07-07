@@ -35,6 +35,11 @@ axiosInstance.interceptors.response.use(
   },
 
   async (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("user");
+      window.location.reload(true);
+      return;
+    }
     // const originalConfig = error.config;
     // const user = JSON.parse(localStorage.getItem("user"));
     // if (
@@ -59,18 +64,5 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export const getTransactions = async (goals) => {
-  const res = await axiosInstance.get("/goals");
-  return res.data.data;
-};
-export const addTransactions = async (goals, body) => {
-  const res = await axiosInstance.post("/goals", body);
-  return res.data.data;
-};
-export const removeTransactions = async (transactions) => {
-  const res = await axiosInstance.get("/transactions");
-  return res.data.data;
-};
 
 export default axiosInstance;

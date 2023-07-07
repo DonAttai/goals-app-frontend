@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React from "react";
 import { Button } from "react-bootstrap";
 import authService from "../service/auth-service";
 
 import { FaSignInAlt, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 function Header() {
-  let { user, dispatch } = useContext(AuthContext);
+  let { user, dispatch } = useAuthContext();
 
-  const logOut = () => {
+  const logUserOut = () => {
     authService.logOut();
     dispatch({ type: "LOGOUT" });
   };
@@ -19,13 +19,10 @@ function Header() {
       <div className="container">
         <div className="logo">GoalSetter</div>
         <ul className="nav">
-          {user && user.token ? (
+          {user ? (
             <>
               <li>
-                <Button
-                  className="btn btn-dark btn-sm"
-                  onClick={() => logOut()}
-                >
+                <Button className="btn btn-dark btn-sm" onClick={logUserOut}>
                   <FaSignOutAlt />
                   LogOut
                 </Button>

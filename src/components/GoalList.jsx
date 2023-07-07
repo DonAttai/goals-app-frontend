@@ -16,14 +16,14 @@ function GoalList() {
         const userGoals = await goalService.getGoals();
         dispatch({ type: "GET_GOALS", payload: userGoals });
       } catch (error) {
-        toast(error.response.data.message, { type: "error" });
+        toast(error.response?.data.message, { type: "error" });
       } finally {
         setIsLoading();
       }
     };
 
     getUserGoals();
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <Loader />;
