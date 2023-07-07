@@ -31,6 +31,7 @@ function Modal({ _id, setIsModalOpen }) {
           <button
             onClick={() => setIsModalOpen((prev) => !prev)}
             className="px-2 py-1 btn btn-sm btn-secondary"
+            disabled={state.isLoading}
           >
             Cancel
           </button>
