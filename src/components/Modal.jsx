@@ -23,10 +23,10 @@ function Modal({ _id, setIsModalOpen }) {
   return (
     <section className="delete-modal">
       <div className="card card-body">
-        <h3>Delete Goal</h3>
-        <hr className="text-dark" />
-        <p>Are you sure?</p>
-        <hr />
+        <h3 className="text-dark">Delete Goal</h3>
+        <hr className=" text-dark w-100" />
+        <p className="text-dark text-bold">Are you sure?</p>
+        <hr className="text-dark w-100" />
         <span className="d-flex gap-2 ">
           <button
             onClick={() => setIsModalOpen((prev) => !prev)}
