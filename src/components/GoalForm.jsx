@@ -19,7 +19,7 @@ function GoalForm() {
   const onSubmit = async (data) => {
     const { text } = data;
     try {
-      setLoading();
+      text && setLoading();
       const goal = await goalService.addGoal({ text });
       dispatch({ type: "ADD_GOAL", payload: goal });
       toast.success("A new goal was added!", { type: "success" });
