@@ -8,12 +8,13 @@ function GoalForm() {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
+    getValues,
     reset,
   } = useForm();
 
-  getValues();
+  const value = getValues("text");
+
   const { dispatch, setLoading, state } = useGoalContext();
 
   const onSubmit = async (data) => {
@@ -41,8 +42,12 @@ function GoalForm() {
         autoComplete="off"
       />
       {errors.text && <p className="text-danger">{errors.text.message}</p>}
-      <button type="submit" disabled={state.isLoading} className="submit-btn">
-        {state.isLoading ? "Pls, Wait" : "Submit"}
+      <button
+        type="submit"
+        disabled={value && state.isLoading}
+        className="submit-btn"
+      >
+        {value && state.isLoading ? "Pls, Wait" : "Submit"}
       </button>
     </form>
   );
