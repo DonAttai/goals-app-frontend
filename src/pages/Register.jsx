@@ -8,7 +8,7 @@ import authService from "../service/auth-service";
 import { useAuthContext } from "../context/AuthContext";
 
 function Register() {
-  const { isLoading, setLoading, dispatch } = useAuthContext;
+  const { isLoading, setLoading, dispatch } = useAuthContext();
   const navigate = useNavigate();
   const {
     register,
